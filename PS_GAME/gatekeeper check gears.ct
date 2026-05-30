@@ -1,0 +1,73 @@
+[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+cmp edx,(int)1200 // gatekeeper cost
+je check_gear
+
+originalcode:
+cmp [ebp+00000140],edx
+jmp exit
+
+
+check_gear:
+//from slot 0 to 13 on char items
+// Helmet
+cmp [ebp+4*0+1c0],0
+jne 00476F33
+// Upper Armor
+cmp [ebp+4*1+1c0],0
+jne 00476F33
+// Lower Armor
+cmp [ebp+4*2+1c0],0
+jne 00476F33
+// Gauntlet
+cmp [ebp+4*3+1c0],0
+jne 00476F33
+// Shoes
+cmp [ebp+4*4+1c0],0
+jne 00476F33
+// Weapons
+//cmp [ebp+4*5+1c0],0
+//jne 00476F33
+// Shield
+cmp [ebp+4*6+1c0],0
+jne 00476F33
+// Cape
+cmp [ebp+4*7+1c0],0
+jne 00476F33
+// Necklace
+cmp [ebp+4*8+1c0],0
+jne 00476F33
+// Right Ring
+cmp [ebp+4*9+1c0],0
+jne 00476F33
+// Left Ring
+cmp [ebp+4*a+1c0],0
+jne 00476F33
+// Right Loop
+cmp [ebp+4*b+1c0],0
+jne 00476F33
+// Left Loop
+cmp [ebp+4*c+1c0],0
+jne 00476F33
+jmp originalcode
+
+
+exit:
+jmp returnhere
+
+"ps_game.exe"+76D24:
+jmp newmem
+nop
+returnhere:
+
+
+[DISABLE]
+dealloc(newmem)
+"ps_game.exe"+76D24:
+cmp [ebp+00000140],edx
+//Alt: db 39 95 40 01 00 00
